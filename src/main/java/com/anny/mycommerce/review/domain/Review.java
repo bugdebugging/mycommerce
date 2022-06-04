@@ -1,5 +1,6 @@
 package com.anny.mycommerce.review.domain;
 
+import com.anny.mycommerce.common.domain.Image;
 import com.anny.mycommerce.product.domain.Product;
 import com.anny.mycommerce.user.domain.User;
 import lombok.AccessLevel;
@@ -33,8 +34,9 @@ public class Review {
     @Column
     private int rate;
 
-    @OneToMany(mappedBy = "review", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<ReviewImage> images;
+    @ElementCollection
+    @CollectionTable(name = "review_imgs", joinColumns = @JoinColumn(name = "review_id"))
+    private List<Image> images;
 
     @Column
     @CreationTimestamp
@@ -44,7 +46,7 @@ public class Review {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public Review(User writer, Product product, String content, int rate, List<ReviewImage> images) {
+    public Review(User writer, Product product, String content, int rate, List<Image> images) {
         this.writer = writer;
         this.product = product;
         this.content = content;

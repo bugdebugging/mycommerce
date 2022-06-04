@@ -1,6 +1,7 @@
 package com.anny.mycommerce.product.domain;
 
 import com.anny.mycommerce.category.domain.Category;
+import com.anny.mycommerce.common.domain.Image;
 import com.anny.mycommerce.common.domain.Money;
 import com.anny.mycommerce.store.domain.Store;
 import lombok.*;
@@ -43,8 +44,9 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(mappedBy = "product", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<ProductImage> images;
+    @ElementCollection
+    @CollectionTable(name = "product_imgs", joinColumns = @JoinColumn(name = "product_id"))
+    private List<Image> images;
 
     @Column
     @CreationTimestamp
@@ -55,13 +57,13 @@ public class Product {
     private LocalDateTime updatedAt;
 
     @Builder(builderMethodName = "of")
-    public Product(String name, String description, Money price, int stock, Store store, Category category, List<ProductImage> images) {
+    public Product(String name, String description, Money price, int stock, Store store, Category category, List<Image> images) {
         Assert.hasText(name, "상품 이름은 필수입니다.");
         Assert.hasText(description, "상품 설명은 필수입니다.");
         Assert.notNull(price, "상품 가격은 필수입니다.");
-        Assert.notNull(store,"상품의 지정 스토어는 필수입니다.");
-        Assert.notNull(category,"상품의 카테고리는 필수입니다.");
-        Assert.notNull(images,"상품 이미지 배열은 NULL 일 수 없습니다.");
+        Assert.notNull(store, "상품의 지정 스토어는 필수입니다.");
+        Assert.notNull(category, "상품의 카테고리는 필수입니다.");
+        Assert.notNull(images, "상품 이미지 배열은 NULL 일 수 없습니다.");
 
         this.name = name;
         this.description = description;
@@ -70,6 +72,5 @@ public class Product {
         this.store = store;
         this.category = category;
         this.images = images;
-        this.images.stream().forEach(image->image.assignProduct(this));
     }
 }
