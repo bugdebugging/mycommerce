@@ -51,4 +51,15 @@ public class User {
         this.phone = phone;
         this.address = address;
     }
+
+    @Builder(builderClassName = "forTest", builderMethodName = "forTest")
+    public User(Long id, String email, String password, String phone, Address address, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.email = email == null ? "testEmail@test.com" : email;
+        this.password = password == null ? "testPassword" : password;
+        this.phone = phone == null ? "010-0100-1010" : phone;
+        this.address = address == null ? Address.of("test", "test", "11111") : address;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 }
