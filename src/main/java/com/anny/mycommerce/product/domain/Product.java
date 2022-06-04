@@ -11,6 +11,7 @@ import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -72,5 +73,19 @@ public class Product {
         this.store = store;
         this.category = category;
         this.images = images;
+    }
+
+    @Builder(builderMethodName = "forTest", builderClassName = "forTest")
+    public Product(Long id, String name, String description, Money price, int stock, Store store, Category category, List<Image> images, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.name = name == null ? "notebook" : name;
+        this.description = description == null ? "this is samsung note book" : description;
+        this.price = price == null ? Money.of(1500000L) : price;
+        this.stock = stock;
+        this.store = store;
+        this.category = category;
+        this.images = images == null ? Arrays.asList() : images;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 }
