@@ -2,10 +2,12 @@ package com.anny.mycommerce.user.domain;
 
 import com.anny.mycommerce.common.domain.Address;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -39,14 +41,16 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    private User(String email, String password, String phone, Address address) {
+    @Builder(builderMethodName = "of")
+    public User(String email, String password, String phone, Address address) {
+        Assert.hasText(email, "이메일은 필수입니다.");
+        Assert.hasText(password, "비밀번호는 필수입니다.");
+        Assert.hasText(phone, "휴대전화 번호는 필수입니다.");
+        Assert.notNull(address, "주소는 필수입니다.");
+
         this.email = email;
         this.password = password;
         this.phone = phone;
         this.address = address;
-    }
-
-    public static User newUser(String email, String password, String phone, Address address) {
-        return new User(email, password, phone, address);
     }
 }
