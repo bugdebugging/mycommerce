@@ -4,6 +4,8 @@ import com.anny.mycommerce.category.domain.Category;
 import com.anny.mycommerce.common.domain.Money;
 import com.anny.mycommerce.store.domain.Store;
 import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -15,6 +17,7 @@ import java.util.List;
 @Entity
 @Table(name = "products")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode(of = "id")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,6 +55,7 @@ public class Product {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @Builder(builderMethodName = "of")
     public Product(String name, String description, Money price, int stock, Store store, Category category, List<ProductImage> images) {
         this.name = name;
         this.description = description;
