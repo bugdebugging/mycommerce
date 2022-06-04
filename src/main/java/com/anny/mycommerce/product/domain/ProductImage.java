@@ -24,12 +24,16 @@ public class ProductImage {
     @Column
     private String path;
 
-    public ProductImage(Product product, String path) {
+    public ProductImage(String path) {
         this.product = product;
         this.path = path;
     }
 
-    public static ProductImage of(Product product, String path) {
-        return new ProductImage(product, path);
+    public void assignProduct(Product product) {
+        this.product = product;
+    }
+
+    public static ProductImage of(String path) {
+        return new ProductImage(path);
     }
 }
