@@ -2,9 +2,9 @@ package com.anny.mycommerce.product;
 
 import com.anny.mycommerce.category.domain.Category;
 import com.anny.mycommerce.category.domain.CategoryRepository;
+import com.anny.mycommerce.common.domain.Image;
 import com.anny.mycommerce.common.domain.Money;
 import com.anny.mycommerce.product.domain.Product;
-import com.anny.mycommerce.product.domain.ProductImage;
 import com.anny.mycommerce.product.domain.ProductRepository;
 import com.anny.mycommerce.store.domain.Store;
 import com.anny.mycommerce.store.domain.StoreRepository;
@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Transactional
@@ -49,9 +50,9 @@ public class ProductRepositoryTest {
                 .build();
         storeRepository.save(store);
 
-        List<ProductImage> images = Arrays.asList(ProductImage.of("https://ilove/springboot/1")
-                , ProductImage.of("https://ilove/springboot/2")
-                , ProductImage.of("https://ilove/springboot/3"));
+        List<Image> images = Arrays.asList(Image.of("https://ilove/springboot/1")
+                , Image.of("https://ilove/springboot/2")
+                , Image.of("https://ilove/springboot/3"));
 
         Product product = Product.of()
                 .store(store)
@@ -66,6 +67,5 @@ public class ProductRepositoryTest {
         Product savedProduct = productRepository.save(product);
 
         assertNotNull(savedProduct.getId());
-        savedProduct.getImages().stream().forEach(image->assertNotNull(image.getId()));
     }
 }
