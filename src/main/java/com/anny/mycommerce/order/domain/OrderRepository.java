@@ -1,4 +1,4 @@
-package com.anny.mycommerce.order;
+package com.anny.mycommerce.order.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

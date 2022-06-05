@@ -1,4 +1,4 @@
-package com.anny.mycommerce.order;
+package com.anny.mycommerce.order.domain;
 
 import com.anny.mycommerce.common.domain.Money;
 import lombok.*;
