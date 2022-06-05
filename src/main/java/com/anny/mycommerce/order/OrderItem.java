@@ -1,27 +1,20 @@
 package com.anny.mycommerce.order;
 
 import com.anny.mycommerce.common.domain.Money;
-import com.anny.mycommerce.product.domain.Product;
 import lombok.*;
 import org.springframework.util.Assert;
 
-import javax.persistence.*;
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
 @Getter
-@Entity
-@Table(name = "order_items")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Embeddable
 @EqualsAndHashCode(of = "id")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Order order;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Product product;
+    @Column
+    private Long productId;
 
     @Column
     private int count;
@@ -30,17 +23,13 @@ public class OrderItem {
     private Money price;
 
     @Builder(builderMethodName = "of")
-    public OrderItem(Product product, int count, Money price) {
-        Assert.notNull(product, "주문 상품은 필수입니다.");
+    public OrderItem(Long productId, int count, Money price) {
+        Assert.notNull(productId, "주문 상품의 id는 필수입니다.");
         Assert.state(count > 0, "주문 상품의 개수는 0보다 커야합니다.");
         Assert.notNull(price, "제품의 가격은 필수입니다.");
 
-        this.product = product;
+        this.productId = productId;
         this.count = count;
         this.price = price;
-    }
-
-    public void assignOrder(Order order) {
-        this.order = order;
     }
 }

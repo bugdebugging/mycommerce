@@ -43,7 +43,8 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private PaymentType paymentType;
 
-    @OneToMany(mappedBy = "order", orphanRemoval = true, cascade = CascadeType.ALL)
+    @ElementCollection
+    @CollectionTable(name = "order_items", joinColumns = @JoinColumn(name = "order_id"))
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @Column
@@ -67,6 +68,5 @@ public class Order {
         this.status = OrderStatus.PAYMENT_WAITING;
         this.paymentType = paymentType;
         this.orderItems = orderItems;
-        this.orderItems.forEach(orderItem->orderItem.assignOrder(this));
     }
 }
