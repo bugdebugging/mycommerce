@@ -67,5 +67,6 @@ public class Order {
         this.status = OrderStatus.PAYMENT_WAITING;
         this.paymentType = paymentType;
         this.orderItems = orderItems;
+        this.orderItems.forEach(orderItem->orderItem.assignOrder(this));
     }
 }

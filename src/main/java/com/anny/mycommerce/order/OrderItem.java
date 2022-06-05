@@ -30,15 +30,17 @@ public class OrderItem {
     private Money price;
 
     @Builder(builderMethodName = "of")
-    public OrderItem(Order order, Product product, int count, Money price) {
-        Assert.notNull(order, "주문 참조는 필수입니다.");
+    public OrderItem(Product product, int count, Money price) {
         Assert.notNull(product, "주문 상품은 필수입니다.");
         Assert.state(count > 0, "주문 상품의 개수는 0보다 커야합니다.");
         Assert.notNull(price, "제품의 가격은 필수입니다.");
 
-        this.order = order;
         this.product = product;
         this.count = count;
         this.price = price;
+    }
+
+    public void assignOrder(Order order) {
+        this.order = order;
     }
 }
