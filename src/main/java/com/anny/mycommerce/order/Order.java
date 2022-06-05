@@ -55,15 +55,17 @@ public class Order {
     private LocalDateTime updatedAt;
 
     @Builder(builderMethodName = "of")
-    public Order(User orderer, Address shippingAddress, PaymentType paymentType) {
-        Assert.notNull(orderer,"주문의 주문자는 필수입니다.");
-        Assert.notNull(shippingAddress,"주문의 배송지는 필수입니다.");
-        Assert.notNull(paymentType,"주문의 결제 방법은 필수입니다.");
+    public Order(User orderer, Address shippingAddress, PaymentType paymentType, List<OrderItem> orderItems) {
+        Assert.notNull(orderer, "주문의 주문자는 필수입니다.");
+        Assert.notNull(shippingAddress, "주문의 배송지는 필수입니다.");
+        Assert.notNull(paymentType, "주문의 결제 방법은 필수입니다.");
+        Assert.notNull(orderItems, "주문 아이템은 필수입니다.");
 
         this.orderer = orderer;
         this.price = Money.ZERO;
         this.shippingAddress = shippingAddress;
         this.status = OrderStatus.PAYMENT_WAITING;
         this.paymentType = paymentType;
+        this.orderItems = orderItems;
     }
 }
