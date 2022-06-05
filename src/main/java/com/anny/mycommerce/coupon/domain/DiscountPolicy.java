@@ -27,8 +27,8 @@ public class DiscountPolicy {
 
     @Builder(builderMethodName = "of")
     public DiscountPolicy(Money limitPrice, LocalDateTime validFrom, LocalDateTime validTo) {
-        Assert.state(validFrom == null && validTo != null, "유효기간은 시작시간과 종료시간이 모두 필요합니다.");
-        Assert.state(validFrom != null && validTo == null, "유효기간은 시작시간과 종료시간이 모두 필요합니다.");
+        Assert.notNull(limitPrice,"할인 가격은 필수입니다.");
+        Assert.state((validFrom == null && validTo == null) || (validFrom != null && validTo != null), "유효기간의 시작과 종료시간이 잘못되었습니다");
 
         this.limitPrice = limitPrice;
         this.validFrom = validFrom;
