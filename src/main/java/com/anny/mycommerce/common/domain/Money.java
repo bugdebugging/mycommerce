@@ -13,7 +13,7 @@ import javax.persistence.Embeddable;
 public class Money {
     @Column
     private Long amount;
-    private static final Money ZERO = of(0L);
+    public static final Money ZERO = of(0L);
 
     public static Money of(Long amount) {
         return new Money(amount);
