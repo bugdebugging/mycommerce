@@ -10,7 +10,7 @@ import javax.persistence.Embeddable;
 
 @Getter
 @Embeddable
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem {
     @Column
