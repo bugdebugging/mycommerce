@@ -3,11 +3,10 @@ package com.anny.mycommerce.order;
 import com.anny.mycommerce.common.domain.Address;
 import com.anny.mycommerce.common.domain.Money;
 import com.anny.mycommerce.user.domain.User;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,6 +17,7 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode(of = "id")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,15 +54,16 @@ public class Order {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public Order(User orderer, Money price, Address shippingAddress, PaymentType paymentType) {
+    @Builder(builderMethodName = "of")
+    public Order(User orderer, Address shippingAddress, PaymentType paymentType) {
+        Assert.notNull(orderer,"주문의 주문자는 필수입니다.");
+        Assert.notNull(shippingAddress,"주문의 배송지는 필수입니다.");
+        Assert.notNull(paymentType,"주문의 결제 방법은 필수입니다.");
+
         this.orderer = orderer;
-        this.price = price;
+        this.price = Money.ZERO;
         this.shippingAddress = shippingAddress;
         this.status = OrderStatus.PAYMENT_WAITING;
         this.paymentType = paymentType;
-    }
-
-    public static Order of(User orderer, Money price, Address shippingAddress, PaymentType paymentType) {
-        return new Order(orderer, price, shippingAddress, paymentType);
     }
 }
