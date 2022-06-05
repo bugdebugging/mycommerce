@@ -20,7 +20,7 @@ public class Coupon {
     @Column
     private Long userId;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private CouponStatus status;
 
     @Embedded
