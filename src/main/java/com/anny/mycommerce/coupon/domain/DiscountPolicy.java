@@ -25,7 +25,7 @@ public class DiscountPolicy {
     @Column
     private LocalDateTime validTo;
 
-    @Builder
+    @Builder(builderMethodName = "of")
     public DiscountPolicy(Money limitPrice, LocalDateTime validFrom, LocalDateTime validTo) {
         Assert.state(validFrom == null && validTo != null, "유효기간은 시작시간과 종료시간이 모두 필요합니다.");
         Assert.state(validFrom != null && validTo == null, "유효기간은 시작시간과 종료시간이 모두 필요합니다.");
