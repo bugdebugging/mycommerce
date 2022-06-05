@@ -34,4 +34,8 @@ public class Money {
     public Money ne() {
         return new Money(-getAmount());
     }
+
+    private void setAmount(Long amount){
+        this.amount=amount;
+    }
 }

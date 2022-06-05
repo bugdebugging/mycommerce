@@ -4,9 +4,7 @@ import com.anny.mycommerce.common.domain.Money;
 import lombok.*;
 import org.springframework.util.Assert;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
 @Getter
 @Embeddable
@@ -19,6 +17,7 @@ public class OrderItem {
     @Column
     private int count;
 
+    @Embedded
     @AttributeOverride(name = "amount", column = @Column(name = "price"))
     private Money price;
 
