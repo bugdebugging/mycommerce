@@ -35,7 +35,11 @@ public class Money {
         return new Money(-getAmount());
     }
 
-    private void setAmount(Long amount){
-        this.amount=amount;
+    public static Money max(Money a, Money b) {
+        return new Money(a.getAmount() > b.getAmount() ? a.getAmount() : b.getAmount());
+    }
+
+    private void setAmount(Long amount) {
+        this.amount = amount;
     }
 }
