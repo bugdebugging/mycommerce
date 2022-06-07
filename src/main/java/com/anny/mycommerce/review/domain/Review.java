@@ -22,11 +22,11 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User writer;
+    @Column
+    private Long writerId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Product product;
+    @Column
+    private Long productId;
 
     @Column
     private String content;
@@ -46,9 +46,9 @@ public class Review {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public Review(User writer, Product product, String content, int rate, List<Image> images) {
-        this.writer = writer;
-        this.product = product;
+    public Review(Long writerId, Long productId, String content, int rate, List<Image> images) {
+        this.writerId = writerId;
+        this.productId = productId;
         this.content = content;
         this.rate = rate;
         this.images = images;
