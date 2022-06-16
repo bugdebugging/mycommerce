@@ -4,6 +4,7 @@ import com.anny.mycommerce.common.domain.Money;
 import com.anny.mycommerce.coupon.domain.Coupon;
 import com.anny.mycommerce.coupon.domain.CouponRepository;
 import com.anny.mycommerce.coupon.domain.DiscountPolicy;
+import com.anny.mycommerce.coupon.domain.ValidPeriod;
 import com.anny.mycommerce.user.domain.User;
 import com.anny.mycommerce.user.domain.application.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -31,8 +32,10 @@ public class CouponRepositoryTest {
 
         final DiscountPolicy discountPolicy = DiscountPolicy.of()
                 .limitPrice(Money.ZERO)
-                .validFrom(LocalDateTime.now().plusHours(2))
-                .validTo(LocalDateTime.now().plusDays(1))
+                .period(ValidPeriod.of()
+                        .validFrom(LocalDateTime.now().plusHours(2))
+                        .validTo(LocalDateTime.now().plusDays(1))
+                        .build())
                 .build();
 
         Coupon coupon = Coupon.of()
