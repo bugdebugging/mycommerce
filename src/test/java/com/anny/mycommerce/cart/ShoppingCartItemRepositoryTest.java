@@ -38,21 +38,21 @@ public class ShoppingCartItemRepositoryTest {
     @Test
     void 쇼핑카트아이템_저장() {
         User user = User.forTest().build();
+        userRepository.save(user);
+
         Category category = Category.of("가전제품");
+        categoryRepository.save(category);
 
         Store store = Store.of()
                 .name("test store")
                 .adminId(user.getId())
                 .build();
+        storeRepository.save(store);
 
         Product product = Product.forTest()
                 .store(store)
                 .category(category)
                 .build();
-
-        userRepository.save(user);
-        categoryRepository.save(category);
-        storeRepository.save(store);
         productRepository.save(product);
 
         ShoppingCartItem shoppingCartItem = ShoppingCartItem.of()

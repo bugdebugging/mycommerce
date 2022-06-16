@@ -45,11 +45,16 @@ public class OrderRepositoryTest {
     @Test
     void 주문_저장() {
         final User user = User.forTest().build();
+        userRepository.save(user);
+
         final Category category = Category.of("가전제품");
+        categoryRepository.save(category);
+
         final Store store = Store.of()
                 .name("test store")
                 .adminId(user.getId())
                 .build();
+        storeRepository.save(store);
 
         final Product product1 = Product.of()
                 .price(Money.of(1000000L))
@@ -70,9 +75,6 @@ public class OrderRepositoryTest {
                 .store(store)
                 .build();
 
-        userRepository.save(user);
-        categoryRepository.save(category);
-        storeRepository.save(store);
         productRepository.save(product1);
         productRepository.save(product2);
 
