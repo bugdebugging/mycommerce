@@ -42,7 +42,7 @@ public class ReviewRepositoryTest {
         User user = userRepository.save(User.forTest().build());
         Store store = storeRepository.save(Store.of()
                 .name("test store")
-                .admin(user)
+                .adminId(user.getId())
                 .build());
         Product product = productRepository.save(Product.of()
                 .store(store)

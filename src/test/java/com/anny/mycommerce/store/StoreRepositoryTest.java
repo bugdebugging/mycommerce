@@ -27,7 +27,7 @@ public class StoreRepositoryTest {
 
         Store store = Store.of()
                 .name(name)
-                .admin(user)
+                .adminId(user.getId())
                 .build();
         Store savedStore = storeRepository.save(store);
         assertNotNull(savedStore.getId());

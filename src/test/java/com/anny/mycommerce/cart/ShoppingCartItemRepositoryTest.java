@@ -42,7 +42,7 @@ public class ShoppingCartItemRepositoryTest {
 
         Store store = Store.of()
                 .name("test store")
-                .admin(user)
+                .adminId(user.getId())
                 .build();
 
         Product product = Product.forTest()

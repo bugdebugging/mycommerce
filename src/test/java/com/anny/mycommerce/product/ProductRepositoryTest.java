@@ -45,7 +45,7 @@ public class ProductRepositoryTest {
 
         final Store store = Store.of()
                 .name("mycommerce")
-                .admin(admin)
+                .adminId(admin.getId())
                 .build();
         storeRepository.save(store);
 

@@ -22,9 +22,8 @@ public class Store {
     @Column
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "admin_id")
-    private User admin;
+    @Column
+    private Long adminId;
 
     @Column
     @CreationTimestamp
@@ -35,10 +34,10 @@ public class Store {
     private LocalDateTime updatedAt;
 
     @Builder(builderMethodName = "of")
-    public Store(String name, User admin) {
+    public Store(String name, Long adminId) {
         Assert.hasText(name, "스토어의 이름은 필수입니다.");
-        Assert.notNull(admin, "스토어 관리자는 필수입니다.");
+        Assert.notNull(adminId, "스토어 관리자의 id는 필수입니다.");
         this.name = name;
-        this.admin = admin;
+        this.adminId = adminId;
     }
 }

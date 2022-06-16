@@ -48,7 +48,7 @@ public class OrderRepositoryTest {
         final Category category = Category.of("가전제품");
         final Store store = Store.of()
                 .name("test store")
-                .admin(user)
+                .adminId(user.getId())
                 .build();
 
         final Product product1 = Product.of()
