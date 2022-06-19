@@ -56,8 +56,8 @@ public class ShoppingCartItemRepositoryTest {
         productRepository.save(product);
 
         ShoppingCartItem shoppingCartItem = ShoppingCartItem.of()
-                .user(user)
-                .product(product)
+                .userId(user.getId())
+                .productId(product.getId())
                 .count(3)
                 .build();
 
